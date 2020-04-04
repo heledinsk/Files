@@ -15,6 +15,8 @@ setup_twitter_oauth(api_key, api_secret, token, token_secret) # setup for access
 
 tweets <- searchTwitter('#covid19uk', n=100000, lang = "en") # the function searchTwitter search for tweets based on the specified parameters
 #tweets1 = searchTwitter('#covid19uk', since = '2020-03-01', geocode = '57.1512475,-7.3292194', n=100000, lang="en") #https://rpubs.com/sumitkumar-00/twitter_sentiment_analysis, I haver not tried it, I altered the geo code to uk
+#Maybe we should not collect retweeted tweets so we can collect distinct ones, computer is super slow with that many data
+
 tweets.df <-twListToDF(tweets) # creates a data frame with one row per tweet
 
 tweetDF <- as.data.frame(tweets.df)
