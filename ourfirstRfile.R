@@ -11,6 +11,7 @@
 =======
 #install.packages("twitteR")
 
+ #load the library
 #using the twitteR package ####
 library(twitteR)
 
@@ -34,3 +35,4 @@ tweetDF <- as.data.frame(tweets.df)
 
 write.csv(tweets.df,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweetsdf.csv", row.names = FALSE)
 >>>>>>> 75579b299bddaea3bcbcee8af8b7852dec82208c
+
