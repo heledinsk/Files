@@ -14,7 +14,6 @@ token_secret <- "BPIS3e4jIYWN4AuXHkUm7w931BSjMoIWq1A0NmkyFwA0m" #token secret
 setup_twitter_oauth(api_key, api_secret, token, token_secret) # setup for accessing twitter using the information above
 
 tweets <- searchTwitter('#covid19uk', n=1000000, lang = "en") # the function searchTwitter search for tweets based on the specified parameters
-#tweets1 = searchTwitter('#covid19uk', since = '2020-03-01', geocode = '57.1512475,-7.3292194', n=1000, lang="en") #https://rpubs.com/sumitkumar-00/twitter_sentiment_analysis, the date gets ignores, geo does not work at all , I altered the geo code to uk
 tweets <- strip_retweets(tweets)# deleting retweets
 tweets.df <-twListToDF(tweets) # creates a data frame with one row per tweet
 
