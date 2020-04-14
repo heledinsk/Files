@@ -40,5 +40,5 @@ wr4<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Appl
 all <- (rbind(wr1, wr2, wr3, wr4))
 final <- all[!duplicated(all$text),] 
 final <- final[order(final$created),]
-write.csv(final,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/CovidTweets.csv", row.names = FALSE)
+write.csv(final,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/Covid19Tweets.csv", row.names = FALSE)
 ###
