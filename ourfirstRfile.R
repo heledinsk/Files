@@ -24,6 +24,13 @@ tweetDF <- as.data.frame(tweets.df)
 
 write.csv(tweetDF,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets5wr.csv", row.names = FALSE)
 
+#### Working on the original files to delete retweets
+#original<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets4wr.csv") #working on the original files to delete retweets
+#oriwt <- ori[- grep("RT", ori$text),] #deleting RT from a data frame of already collected tweets
+#write.csv(d,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets3wr.csv", row.names = FALSE)#rewriting datasets without retweets
+####
+
+### Merging the various data frames, deleting duplicates, ordering by date
 #library(readr)
 wr1<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets1wr.csv")
 wr2<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets2wr.csv")
@@ -34,9 +41,4 @@ all <- (rbind(wr1, wr2, wr3, wr4))
 final <- all[!duplicated(all$text),] 
 final <- final[order(final$created),]
 write.csv(final,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/CovidTweets.csv", row.names = FALSE)
-
-
-
-#ori<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets4wr.csv")
-#d <- ori[- grep("RT", ori$text),]
-#write.csv(d,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets3wr.csv", row.names = FALSE)
+###
