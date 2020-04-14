@@ -14,12 +14,22 @@ token_secret <- "BPIS3e4jIYWN4AuXHkUm7w931BSjMoIWq1A0NmkyFwA0m" #token secret
 
 setup_twitter_oauth(api_key, api_secret, token, token_secret) # setup for accessing twitter using the information above
 
-tweets <- searchTwitter('#covid19uk', n=100000, lang = "en") # the function searchTwitter search for tweets based on the specified parameters
+tweets <- searchTwitter("#covid19uk -filter:retweets", n=100000, lang = "en", retryOnRateLimit = 120) # the function searchTwitter search for tweets based on the specified parameters
 #tweets1 = searchTwitter('#covid19uk', since = '2020-03-01', geocode = '57.1512475,-7.3292194', n=100000, lang="en") #https://rpubs.com/sumitkumar-00/twitter_sentiment_analysis, I haver not tried it, I altered the geo code to uk
-tweets <- strip_retweets(tweets)
+#searchTwitter("#covid19uk -filter:retweets", n = 40000, lang = "en", since = '2016-12-12',until = "2016-12-13", retryOnRateLimit = 120)
+#tweets <- strip_retweets(tweets)
 tweets.df <-twListToDF(tweets) # creates a data frame with one row per tweet
 
 tweetDF <- as.data.frame(tweets.df)
 
-write.csv(tweets.df,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweetsdf.csv", row.names = FALSE)
+write.csv(tweetDF,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets5wr.csv", row.names = FALSE)
 
+#library(readr)
+wr1<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets1wr.csv")
+wr2<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets2wr.csv")
+wr3<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets3wr.csv")
+wr4<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets4wr.csv")
+
+#ori<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets4wr.csv")
+#d <- ori[- grep("RT", ori$text),]
+#write.csv(d,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets3wr.csv", row.names = FALSE)
