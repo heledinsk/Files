@@ -3,7 +3,7 @@
 #using the twitteR package ####
 library(twitteR)
 
-
+ 
 #From the twitter app (Keys and tokens)
 api_key <- "NZdDgX5gBv83yRILFlJiq5J1R" # API key 
 api_secret <- "rNaFONCS56mFxWHCfXWW85JP9SGwu545dPV3pMk229FQuKQfoo" #API secret key 
