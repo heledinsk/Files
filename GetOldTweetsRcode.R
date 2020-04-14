@@ -2,12 +2,12 @@ library(rtweet)
 library(rvest)
 library(jsonlite)
 
-create_token(
-  app = "Charaapp",
-  consumer_key = "NZdDgX5gBv83yRILFlJiq5J1R",
-  consumer_secret = "rNaFONCS56mFxWHCfXWW85JP9SGwu545dPV3pMk229FQuKQfoo",
-  access_token = "808308358847537152-krRV8KqJDCnHaMFVBmwfVjkriYRjCRC",
-  access_secret = "BPIS3e4jIYWN4AuXHkUm7w931BSjMoIWq1A0NmkyFwA0m")
+#create_token(
+  #app = "",
+  #consumer_key = "",
+  #consumer_secret = "",
+  #access_token = "",
+ # access_secret = "")
   
 # Input parameters
 startdate =  "2020-02-02"
