@@ -13,10 +13,10 @@ library(twitteR)
 strip_retweets
 
 #From the twitter app (Keys and tokens)
-api_key <- "NZdDgX5gBv83yRILFlJiq5J1R" # API key 
-api_secret <- "rNaFONCS56mFxWHCfXWW85JP9SGwu545dPV3pMk229FQuKQfoo" #API secret key 
-token <- "808308358847537152-krRV8KqJDCnHaMFVBmwfVjkriYRjCRC" #token 
-token_secret <- "BPIS3e4jIYWN4AuXHkUm7w931BSjMoIWq1A0NmkyFwA0m" #token secret
+#api_key <- "" # API key 
+#api_secret <- "" #API secret key 
+#token <- "-" #token 
+#token_secret <- "" #token secret
 
 
 setup_twitter_oauth(api_key, api_secret, token, token_secret) # setup for accessing twitter using the information above
