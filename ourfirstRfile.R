@@ -3,14 +3,6 @@
 #using the twitteR package ####
 library(twitteR)
 
- 
-#From the twitter app (Keys and tokens)
-api_key <- "NZdDgX5gBv83yRILFlJiq5J1R" # API key 
-api_secret <- "rNaFONCS56mFxWHCfXWW85JP9SGwu545dPV3pMk229FQuKQfoo" #API secret key 
-token <- "808308358847537152-krRV8KqJDCnHaMFVBmwfVjkriYRjCRC" #token 
-token_secret <- "BPIS3e4jIYWN4AuXHkUm7w931BSjMoIWq1A0NmkyFwA0m" #token secret
-
-
 setup_twitter_oauth(api_key, api_secret, token, token_secret) # setup for accessing twitter using the information above
 
 tweets <- searchTwitter('#covid19uk', n=1000000, lang = "en") # the function searchTwitter search for tweets based on the specified parameters
