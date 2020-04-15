@@ -19,3 +19,44 @@ tweetDF <- as.data.frame(tweets.df)
 write.csv(tweets.df,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweetsdf.csv", row.names = FALSE)
 
 
+#############################################
+
+#Alternative with rtweet: 
+#install.packages("rtweet")
+library(rtweet)
+
+#One time connection to get started
+api_key <- "*" # API key 
+api_secret <- "*" #API secret key 
+access_token <- "*" #token 
+token_secret <- "*" #token secret
+
+## authenticate via web browser
+token <- create_token(
+  app = "rstatsjournalismresearch",
+  consumer_key = api_key,
+  consumer_secret = api_secret,
+  access_token = access_token,
+  access_secret = token_secret)
+
+#After restart, this automatically connects you to the api
+library(rtweet)
+get_token()
+
+# get sample tweet
+rt <- search_tweets(
+  "#covid19uk -filter:retweets",
+  n = 20
+)
+
+
+#test to check if stuff gets truncated: 
+test <- search_tweets(
+  "Even for those of us who have experienced a demanding hostile environment and witnessed",
+  n = 20
+)
+test$text
+
+
+#write it as csv
+rtweet::write_as_csv(rt,"tweetstest.csv")
