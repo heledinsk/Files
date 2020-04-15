@@ -11,8 +11,7 @@ library(twitteR)
 
 setup_twitter_oauth(api_key, api_secret, token, token_secret) # setup for accessing twitter using the information above
 
-tweets <- searchTwitter('#covid19uk', n=1000000, lang = "en") # the function searchTwitter search for tweets based on the specified parameters
-tweets <- strip_retweets(tweets)# deleting retweets
+tweets <- searchTwitter("#covid19uk -filter:retweets", n=100000, lang = "en", retryOnRateLimit = 120)# the function searchTwitter search for tweets based on the specified parameters
 tweets.df <-twListToDF(tweets) # creates a data frame with one row per tweet
 
 tweetDF <- as.data.frame(tweets.df)
