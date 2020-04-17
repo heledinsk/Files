@@ -63,56 +63,6 @@ tweets <- unique(tweets)
 #using only sample size for faster performance
 tweets <- sample (tweets, size=100)
 
-##### NO TOKENIZATION OR STEMMING - TRYING TO DETERMINE THE EMOTION OF THE WHOLE TWEET
-
-# remove retweet entities
-tweets1 <- gsub('(RT|via)((?:\\b\\W*@\\w+)+)', '', tweets)
-# remove at people - this removes the whole string for person, do we want that or just delete the @
-tweets1 <- gsub('@\\w+', '', tweets1)
-# remove punctuation
-tweets1 = gsub('[[:punct:]]', '', tweets1)
-# remove numbers
-tweets1 = gsub('[[:digit:]]', '', tweets1)
-# remove html links
-tweets1 = gsub('http\\w+', '', tweets1)
-# remove unnecessary spaces
-tweets1 = gsub('[ \t]{2,}', '', tweets1)
-tweets1 = gsub('^\\s+|\\s+$', '', tweets1)
-# remove emojis or special characters
-tweets1 = gsub('<.*>', '', enc2native(tweets1))
-
-
-# removing delimiters
-tweets1 <- removePunctuation(tweets1)
-
-# removing whitespace
-tweets1 <- stripWhitespace(tweets1)
-
-# lower case conversion
-tweets1 <- tolower(tweets1)
-
-# get the emotions using the NRC dictionary
-emotions <- get_nrc_sentiment(tweets1)
-View(emotions)
-emo_bar = colSums(emotions)
-View(emo_bar)
-emo_sum = data.frame(count=emo_bar, emotion=names(emo_bar))
-View(emo_sum)
-emo_sum$emotion = factor(emo_sum$emotion, levels=emo_sum$emotion[order(emo_sum$count, decreasing = TRUE)])
-
-View(tweets1)
-
-
-#this shows the sentiment score per tweet
-sentiment(tweets1)
-
-#this creates matrix showing the emotions - maybe we could  pivot it..? 
-get_nrc_sentiment(tweets1)
-
-
-
-
-
 
 
 ##### WITH TOKENIZATION AND STEMMING 
@@ -160,10 +110,6 @@ clean_tweets <- words(clean_tweets)
 clean_tweets
 
 
-# extract the timestamp - skipped
-timestamp <- as.POSIXct(sapply(clean_tweets, function(x)x$getCreated()), origin="1970-01-01", tz="GMT")
-timestamp <- timestamp[!duplicated(clean_tweets)]
-clean_tweets <- clean_tweets[!duplicated(clean_tweets)]
 
 # Get sentiments using the four different lexicons
 syuzhet <- get_sentiment(clean_tweets, method="syuzhet")
@@ -227,9 +173,4 @@ comparison.cloud(tdm1, random.order=FALSE,
                  title.size=1, max.words=250, scale=c(2.5, 0.4),rot.per=0.4)
 
 
-
-sentiment(clean_tweets)
-get_nrc_sentiment(clean_tweets)
-
-# add sentiment score to data.frame
-column <- sentiment(clean_tweets)$sentiment 
+#next step try to determine emotions from ngrams!
