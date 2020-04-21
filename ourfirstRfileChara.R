@@ -41,14 +41,39 @@ write.csv(Covid19Tweetsnew,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd S
 ### Prep
 Covid19Tweets<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/Covid19Tweets.csv")
 
+#Removing urls from trancated tweets
 Covid19Tweets$text <- gsub("?http(s?)://(.*)", "", Covid19Tweets$text) #replacing urls with "" using regular expressions.
+Covid19Tweets <-Covid19Tweets %>% 
+  select(-2,-(13:16))
+#Hashtag column
+hash <- str_match_all(Covid19Tweets$text, "#\\w+")
+
+Covid19Tweets_hash <- Covid19Tweets %>%
+  mutate(hashtags = hash) 
+
+#refer column
+refer <- str_match_all(Covid19Tweets$text, "@\\w+")
+
+Covid19Tweets_refer <- Covid19Tweets %>%
+  mutate(Refer = refer)
+
+#emoji
+
+#Separate reply tweets
+
+completeFun <- function(Covid19Tweets, replyToSN) {
+  completeVec <- complete.cases(Covid19Tweets[, replyToSN])
+  return(Covid19Tweets[completeVec, ])
+}
+Covid19Tweets_reply <- completeFun(Covid19Tweets, "replyToSN")
 
 #using only sample size for faster performance
 tweetsdataset <- Covid19Tweets[sample(nrow(Covid19Tweets), 100), ]%>%
-  unique()
+  unique() %>% 
+  
 tweets <-tweetsdataset$text
 
-#into character vecotr
+#into character vector
 tweets <- as.character(tweets)  
 
 
