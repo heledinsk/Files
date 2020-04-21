@@ -25,6 +25,7 @@ tweets <- unique(tweets)
 #using only sample size for faster performance
 tweets <- sample (tweets, size=100)
 
+#################################################################################################
 #Data prep
 ##### WITH TOKENIZATION AND STEMMING 
 
