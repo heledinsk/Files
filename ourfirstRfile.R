@@ -38,9 +38,7 @@ write.csv(tweets.df,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester
 #2233
 
 
-
-
-
+#1. TRYING TO CLEAN THE DATA
 
 library(syuzhet)
 library(plotly)
@@ -179,7 +177,7 @@ comparison.cloud(tdm1, random.order=FALSE,
 
 
 
-#adding columns with sentiment per each word!
+#2. adding columns with sentiment per each word!
 
 # Load dplyr and tidytext
 library(dplyr)
@@ -259,6 +257,119 @@ ggplot(top_words, aes(word, n, fill = sentiment)) +
   geom_col(show.legend = FALSE) +
   facet_wrap(~sentiment, scales = "free") +  
   coord_flip()
+
+
+
+
+
+
+#3. next try: add words to separate columns, keep the whole tweet there and assign sentiments to the selected words
+sandbox <- read.csv("D:/Tereza/Aarhus university/master/2. semester/Applied Data Science/project/sandbox.csv")
+View(sandbox)
+
+# extract hashtags and put them in a new collumn
+
+hash <- str_match_all(sandbox$text, "#\\w+")
+
+sandbox_hash <- sandbox %>%
+  mutate(hashtags = hash)
+
+View(sandbox_hash)
+str(sandbox_hash)
+
+#a. keep only some columns 
+data <- select(sandbox_hash, text)
+str(data)
+
+#b. delete some uneccesary columns
+file <- select(sandbox_hash, -user_id, -status_id, -reply_to_user_id, -reply_to_status_id, -urls_t.co, -ext_media_url, -ext_media_t.co, -mentions_user_id,-quoted_status_id, -quoted_user_id)
+View(file)
+
+#add row number - to spot from what tweet a a word is 
+file <- data %>%
+  mutate(tweet_number = row_number())
+file$tweet_number
+str(file)
+
+#transform text into character vector, date into date, we probably need to change other variables 
+file <- transform(file, text = as.character(text))
+View(file)
+str(file)
+
+tweets <-file$text
+View(tweets)
+str(tweets)
+
+
+#try to merge tweets and the words file - do it later
+merged <- merge(file_tokens, file, by = "tweet_number")
+
+
+
+#tokenize
+library(tidytext)
+file_tokens <- file %>%
+  unnest_tokens(word, text)
+
+View(file_tokens)
+str(file_tokens)
+
+file <- select(file_tokens, word, tweet_number)
+View(file)
+
+#stop words
+get_stopwords()
+
+#making a dokument with only the words
+tweets <- file_tokens$word
+str(tweets)
+View(tweets)
+
+
+
+cleaned_file <- file_tokens %>%
+  anti_join(get_stopwords())
+View(cleaned_file$word)
+
+str(cleaned_file)
+str(cleaned_file$word) #without stop words 2143
+str(file_tokens$word) #with stop words we have 3151 words - so we have deleted 1008 stop words
+
+
+#try to merge tweets and the words file - do it later
+merged <- merge(file, cleaned_file, by = "tweet_number")
+View(merged)
+
+merged %>%
+  count(word, sort = TRUE) #what are the most common words
+
+#count positive words
+positive <- get_sentiments("bing") %>%
+  filter(sentiment == "positive")
+
+#count positve words
+merged %>%
+  semi_join(positive) %>%
+  count(word, sort = TRUE)
+
+#negative words
+negative <- get_sentiments("bing") %>%
+  filter(sentiment == "negative")
+
+merged %>%
+  semi_join(negative) %>%
+  count(word, sort = TRUE)
+
+
+sentiment <- merged %>%
+  # Implement sentiment analysis with the "bing" lexicon
+  inner_join(get_sentiments("bing"))
+
+sentiment %>%
+  # Find how many positive/negative words THERE IS 
+  count(word,sentiment, sort = TRUE)
+
+View(sentiment)
 
 
 
