@@ -69,7 +69,7 @@ Covid19Tweets_reply <- completeFun(Covid19Tweets, "replyToSN")
 
 #using only sample size for faster performance
 tweetsdataset <- Covid19Tweets[sample(nrow(Covid19Tweets), 100), ]%>%
-  unique() %>% 
+  unique() 
   
 tweets <-tweetsdataset$text
 
@@ -126,7 +126,7 @@ bing <- get_sentiment(clean_tweets, method="bing")
 afinn <- get_sentiment(clean_tweets, method="afinn")
 nrc <- get_sentiment(clean_tweets, method="nrc")
 #collect them in a data frame together with the tweet time (maybe also TweetID)
-sentiments <- data.frame(syuzhet, bing, afinn, nrc, tweetsdataset$created)# the date is not be proper here if we sampled
+sentiments <- data.frame(tweets,syuzhet, bing, afinn, nrc, tweetsdataset$created)# the date is not be proper here if we sampled
 sentiments <- sentiments %>% 
   arrange(tweetsdataset.created)
 
