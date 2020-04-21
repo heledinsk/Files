@@ -45,8 +45,10 @@ get_token()
 
 # get sample tweet
 rt <- search_tweets(
-  "#covid19uk -filter:retweets",
-  n = 20
+  "#covid19uk lang:en",
+  n = 100000, 
+  include_rts = FALSE,
+  retryonratelimit = TRUE
 )
 
 
@@ -59,4 +61,4 @@ test$text
 
 
 #write it as csv
-rtweet::write_as_csv(rt,"tweetstest.csv")
+rtweet::write_as_csv(rt,"tweets04_14-21.csv")
