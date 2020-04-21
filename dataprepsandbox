@@ -1,1 +1,5 @@
+setwd("~/R/ADS")
 
+library(readr)
+sandbox <- read_csv("sandbox.csv")
+View(sandbox)
