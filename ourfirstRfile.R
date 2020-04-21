@@ -1,4 +1,5 @@
-#install.packages("twitteR")
+pacman::p_load( "pacman", "tidyverse", "magrittr", "nycflights13", "gapminder", "Lahman", "maps", "lubridate", "pryr", "hms", "hexbin", "feather", "htmlwidgets", "stringr", "forcats", "broom", "pander", "modelr", "tidyr","rvest", "methods", "readr", "haven", "testthat","RSQLite")
+)
 
 #using the twitteR package ####
 library(twitteR)
