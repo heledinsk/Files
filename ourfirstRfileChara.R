@@ -1,5 +1,4 @@
-library(readr)
-library(twitteR)
+pacman::p_load("pacman", "tidyverse", "magrittr", "nycflights13", "gapminder", "Lahman", "maps", "lubridate", "pryr", "hms", "hexbin", "feather", "htmlwidgets", "stringr", "forcats", "broom", "pander", "modelr", "tidyr","twitteR", "methods", "readr", "haven", "testthat","RSQLite")
 
 #From the twitter app (Keys and tokens)
 #api_key <- "" # API key 
@@ -28,20 +27,16 @@ write.csv(tweetDF,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/A
 
 ### Merging the various data frames, deleting duplicates, ordering by date
 library(readr)
-#wr1<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets1wr.csv")
-#wr2<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets2wr.csv")
-#wr3<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets3wr.csv")
-#wr4<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets4wr.csv")
+previousdataset<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/Covid19Tweetsold.csv")
+new<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/tweets5wr.csv")
 
-#all <- (rbind(wr1, wr2, wr3, wr4))
-#final <- all[!duplicated(all$text),] 
-#final <- final[order(final$created),]
-#write.csv(Covid19Tweets2,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/Covid19Tweets.csv", row.names = FALSE)
+all <- (rbind(previousdataset, new))
+Covid19Tweetsnew <- all[!duplicated(all$text),] 
+Covid19Tweetsnew <- Covid19Tweetsnew[order(Covid19Tweetsnew$created),]
+Covid19Tweetsnew <- distinct(Covid19Tweetsnew) %>% 
+                    unique()
+Covid19Tweetsnew <- Covid19Tweetsnew[!duplicated(Covid19Tweetsnew$text),] 
+write.csv(Covid19Tweetsnew,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/Covid19Tweets2.csv", row.names = FALSE)
+
 ###
 
-Covid19Tweets<- read_csv("C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/Covid19Tweets.csv")
-
-Covid19Tweets <- distinct(Covid19Tweets)
-Covid19Tweets <- unique(Covid19Tweets)
-Covid19Tweets <- Covid19Tweets[!duplicated(Covid19Tweets$text),] 
-#write.csv(Covid19Tweets2,"C:/Users/avrch/Desktop/Files/BI AU - 2019-2021/2nd Semester/Applied Data Science/AppliedDataScience/Covid19Tweets.csv", row.names = FALSE)
