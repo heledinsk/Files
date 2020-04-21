@@ -4,6 +4,7 @@ Prep
 #install.packages ("tm")
 #install.packages("wordcloud")
 #install.packages("SnowballC")
+pacman::p_load( "pacman", "tidyverse", "magrittr", "nycflights13", "gapminder", "Lahman", "maps", "lubridate", "pryr", "hms", "hexbin", "feather", "htmlwidgets", "stringr", "forcats", "broom", "pander", "modelr", "tidyr","rvest", "methods", "readr", "haven", "testthat","RSQLite")
 
 library(SnowballC)
 library(syuzhet)
@@ -81,7 +82,7 @@ sentiments <- sentiments %>%
   arrange(file.created_at)
 
 # get the emotions using the NRC dictionary
-emotions <- get_nrc_sentiment(clean_tweets)
+emotions <- get_nrc_sentiment(clean_tweets_stem)
 View(emotions)
 emo_bar = colSums(emotions)
 View(emo_bar)
@@ -89,8 +90,29 @@ emo_sum = data.frame(count=emo_bar, emotion=names(emo_bar))
 View(emo_sum)
 emo_sum$emotion = factor(emo_sum$emotion, levels=emo_sum$emotion[order(emo_sum$count, decreasing = TRUE)])
 
-# Build a collumn to put the overwheigting emotion in 
-'????'
+
+# Build a collumn to put the average/mode emotion in 
+
+#write it as csv, to add an ID row
+write.csv(emotions, file = "emotions.csv")
+emo <- read.csv("emotions.csv")
+str(emo)
+
+#gathering the data, to use dplyr
+emo_ob <- emo %>% 
+  gather(code, value, anger:positive, na.rm = TRUE)%>% 
+  arrange(id)
+
+#showing the top three emotions of each tweet 
+emo_g_1 <- emo_ob %>%
+  group_by(id) %>% 
+  top_n(3, value) 
+
+#excluding tweets that had only 0s in the emotion value
+emo_g_2<- emo_ob %>%
+  group_by(id) %>% 
+  filter(!value == 0)
+
 
 #####################################################################################
 #Visualization#
